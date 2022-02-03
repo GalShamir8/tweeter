@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-     redirect_to new_user_registration_path 
+     redirect_to users_path 
   end
 end
