@@ -4,6 +4,13 @@ class TweetsController < ApplicationController
   # GET /tweets or /tweets.json
   def index
     @tweets = Tweet.all
+    users_map = {}
+    @tweets.each do |tweet|
+      user_id = tweet.user_id
+      users_map[user_id] = User.find(user_id)
+    end
+
+    @users = users_map.values
   end
 
   # GET /tweets/1 or /tweets/1.json
