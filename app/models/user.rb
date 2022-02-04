@@ -8,4 +8,5 @@ class User < ApplicationRecord
     validates_format_of :password, :with => /[a-z0-9]{6,20}/
     
   has_many :tweets
+  has_many :followers
 end
