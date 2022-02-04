@@ -15,6 +15,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1 or /tweets/1.json
   def show
+    @user = User.find(@tweet.user_id)
   end
 
   # GET /tweets/new
