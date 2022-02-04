@@ -12,13 +12,9 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id %>
-  </div>
-
-  <div class="field">
     <%= form.label :content %>
     <%= form.text_field :content %>
+    <%= form.hidden_field :user_id, required: true, class: 'form-control', value:current_user.id  %>
   </div>
 
   <div class="actions">
