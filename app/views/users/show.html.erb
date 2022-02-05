@@ -10,6 +10,19 @@
   <%= @user.email %>
 </p>
 
+<p>
+  <strong>Followers:</strong>
+  <%= @followers.length() || 0 %>
+</p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<p>
+  <strong>Following:</strong>
+  <%= @follows.length() || 0 %>
+</p>
+
+<%if user_signed_in?%>
+  <%if current_user.id == @user.id%>
+    <%= link_to 'Edit', edit_user_path(@user) %> |
+  <%end%>
+<%end%>
 <%= link_to 'Back', users_path %>

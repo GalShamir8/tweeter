@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :searched_users, only: %i[ search ]
 
   # GET /users or /users.json
   def index
@@ -8,14 +9,12 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    format.html{render "in sow func $@user.present?"}
-    if @user.present?
-      format.html { redirect_to user_url(@user)}
-      format.json { render :show, status: :created, location: @user }
-    else
-      format.html { render :new, status: :unprocessable_entity }
-      format.json { render json: @user.errors, status: :unprocessable_entity }
-    end
+    @followers = Follower.where(follow: @user.id)
+    @follows = Follower.where(user_id: @user.id)
+  end
+
+  # GET /users/search
+  def search
   end
 
   # GET /users/new
@@ -74,5 +73,9 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:email, :password)
+    end
+
+    def searched_users
+      @users = User.where("username LIKE ?", "%#{params[:q]}%")
     end
 end
