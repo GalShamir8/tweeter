@@ -71,10 +71,6 @@ class TweetsController < ApplicationController
       @tweet = Tweet.find(params[:id])
     end
 
-    def set_login
-      @logged_in = !current_user.nil?
-    end
-
     # Only allow a list of trusted parameters through.
     def tweet_params
       params.require(:tweet).permit(:user_id, :content)
