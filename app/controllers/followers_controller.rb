@@ -25,8 +25,9 @@ class FollowersController < ApplicationController
 
     respond_to do |format|
       if @follower.save
-        format.html { redirect_to follower_url(@follower), notice: "Follower was successfully created." }
-        format.json { render :show, status: :created, location: @follower }
+        user = User.find(@follower.follow)
+        format.html { redirect_to user_url(user), notice: "Follower was successfully created." }
+        format.json { render :show, status: :created, location: user }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @follower.errors, status: :unprocessable_entity }
