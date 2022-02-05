@@ -24,7 +24,12 @@
   <%if current_user.id == @user.id%>
     <%= link_to 'Edit', edit_user_path(@user) %> |
   <%else%>
-    <%= button_to "follow", followers_path(follower: {user_id: current_user.id,follow: @user.id}) %>
+    <%follows = Follower.where("user_id == ? AND follow == ?", current_user.id, @user.id) %>
+    <% if follows.blank? %> 
+      <%= button_to "follow", followers_path(follower: {user_id: current_user.id,follow: @user.id}) %>
+    <%else%>
+      <%= button_to "unfollow", follower_url(follows[0].id), method: :delete, data: { confirm: 'Are you sure?' }  %>
+    <%end%>
   <%end%>
 <%end%>
 <%= link_to 'Back', users_path %>

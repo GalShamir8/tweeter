@@ -26,7 +26,7 @@ class FollowersController < ApplicationController
     respond_to do |format|
       if @follower.save
         user = User.find(@follower.follow)
-        format.html { redirect_to user_url(user), notice: "Follower was successfully created." }
+        format.html { redirect_to user_url(user)}
         format.json { render :show, status: :created, location: user }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -40,7 +40,7 @@ class FollowersController < ApplicationController
     respond_to do |format|
       if @follower.update(follower_params)
         format.html { redirect_to follower_url(@follower), notice: "Follower was successfully updated." }
-        format.json { render :show, status: :ok, location: @follower }
+        format.json { render :show, status: :ok, location: user }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @follower.errors, status: :unprocessable_entity }
@@ -50,10 +50,11 @@ class FollowersController < ApplicationController
 
   # DELETE /followers/1 or /followers/1.json
   def destroy
+    user = User.find(@follower.follow)
     @follower.destroy
 
     respond_to do |format|
-      format.html { redirect_to followers_url, notice: "Follower was successfully destroyed." }
+      format.html { redirect_to user_url(user)}
       format.json { head :no_content }
     end
   end
