@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy followers]
+  before_action :set_user, only: %i[ show edit update destroy followers following]
   before_action :searched_users, only: %i[ search ]
 
   Q_GET_ALL_FOLLOWERS = 'follow = ?'
