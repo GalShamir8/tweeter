@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy followers]
   before_action :searched_users, only: %i[ search ]
+
+  Q_GET_ALL_FOLLOWERS = 'follow = ?'
+  Q_GET_ALL_FOLLOWING = 'user_id = ?'
 
   # GET /users or /users.json
   def index
@@ -9,12 +12,40 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
-    @followers = Follower.where(follow: @user.id)
-    @follows = Follower.where(user_id: @user.id)
+    @followers_count = @followers.length() || 0
+    @following_count = @following.length() || 0
   end
 
   # GET /users/search
   def search
+  end
+
+  # GET /users/followers
+  def followers
+    @users = []
+    if !@followers.blank?
+      @followers.each do |follower|
+        user_id = follower.user_id
+        user = User.find(user_id)
+        if !user.blank?
+          @users.append(user)
+        end
+      end
+    end
+  end
+
+  # GET /users/following
+  def following
+    @users = []
+    if !@following.blank?
+      @following.each do |follower|
+        user_id = follower.follow
+        user = User.find(user_id)
+        if !user.blank?
+          @users.append(user)
+        end
+      end
+    end
   end
 
   # GET /users/new
@@ -68,6 +99,17 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+      @followers = Follower.where(Q_GET_ALL_FOLLOWERS, @user.id)
+      @following = Follower.where(Q_GET_ALL_FOLLOWING, @user.id)
+      if @followers.length() || 0 > 0
+        current_user_following = @followers.where("user_id = ?", current_user.id)
+        @is_follow = !current_user_following.blank?
+        if @is_follow
+          @follow_row_index = current_user_following.first.id
+        end
+      else
+        @is_follow = false
+      end
     end
 
     # Only allow a list of trusted parameters through.

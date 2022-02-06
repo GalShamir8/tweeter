@@ -10,25 +10,26 @@
   <%= @user.email %>
 </p>
 
-<p>
+<p>      
   <strong>Followers:</strong>
-  <%= @followers.length() || 0 %>
+  <br>
+  <%= button_to "#{@followers_count}", users_followers_path, params: {id: @user.id}, method: :get %>
+  </br>
 </p>
 
 <p>
   <strong>Following:</strong>
-  <%= @follows.length() || 0 %>
+  <%= button_to "#{@following_count}", users_following_path, params: {id: @user.id}, method: :get %>
 </p>
 
 <%if user_signed_in?%>
   <%if current_user.id == @user.id%>
     <%= link_to 'Edit', edit_user_path(@user) %> |
   <%else%>
-    <%follows = Follower.where("user_id == ? AND follow == ?", current_user.id, @user.id) %>
-    <% if follows.blank? %> 
+    <% if !@is_follow %> 
       <%= button_to "follow", followers_path(follower: {user_id: current_user.id,follow: @user.id}) %>
     <%else%>
-      <%= button_to "unfollow", follower_url(follows[0].id), method: :delete, data: { confirm: 'Are you sure?' }  %>
+      <%= button_to "unfollow", follower_url(@follow_row_index), method: :delete, data: { confirm: 'Are you sure?' }  %>
     <%end%>
   <%end%>
 <%end%>
