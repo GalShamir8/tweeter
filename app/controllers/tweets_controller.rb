@@ -4,13 +4,11 @@ class TweetsController < ApplicationController
   # GET /tweets or /tweets.json
   def index
     @tweets = Tweet.all
-    users_map = {}
+    @users_map = {}
     @tweets.each do |tweet|
       user_id = tweet.user_id
-      users_map[user_id] = User.find(user_id)
+      @users_map[user_id] = User.find(user_id)
     end
-
-    @users = users_map.values
   end
 
   # GET /tweets/1 or /tweets/1.json
@@ -69,6 +67,7 @@ class TweetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
       @tweet = Tweet.find(params[:id])
+      @is_my_tweet = user_signed_in? && current_user.id == @tweet.user_id
     end
 
     # Only allow a list of trusted parameters through.

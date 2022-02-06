@@ -14,7 +14,7 @@
   <tbody>
     <% @tweets.each do |tweet| %>
       <tr>
-        <td><%= @users.find{ |user| user.id == tweet.user_id}.username %></td>
+        <td><%= @users_map[tweet.user_id].username %></td>
         <td><%= tweet.content %></td>
         <td><%= link_to 'Show', tweet %></td>
         <%if user_signed_in?%>
