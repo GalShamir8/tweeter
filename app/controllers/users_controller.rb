@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy followers following]
+  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_following, only: %i[ show following followers ]
+  before_action :set_followers, only: %i[ show followers following ]
+  before_action :set_is_follow, only: %i[ show followers following ]
   before_action :searched_users, only: %i[ search ]
 
   Q_GET_ALL_FOLLOWERS = 'follow = ?'
@@ -99,8 +102,17 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
-      @followers = Follower.where(Q_GET_ALL_FOLLOWERS, @user.id)
+    end
+
+    def set_following
       @following = Follower.where(Q_GET_ALL_FOLLOWING, @user.id)
+    end
+
+    def set_followers
+      @followers = Follower.where(Q_GET_ALL_FOLLOWERS, @user.id)
+    end
+
+    def set_is_follow
       if @followers.length() || 0 > 0
         current_user_following = @followers.where("user_id = ?", current_user.id)
         @is_follow = !current_user_following.blank?
