@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :set_user, only: %i[ show edit update destroy following followers ]
   before_action :set_following, only: %i[ show following followers ]
   before_action :set_followers, only: %i[ show followers following ]
   before_action :set_is_follow, only: %i[ show followers following ]

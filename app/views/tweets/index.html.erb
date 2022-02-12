@@ -17,7 +17,6 @@
         <td><%= @users_map[tweet.user_id].username %></td>
         <td><%= tweet.content %></td>
         <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to "visit user profile", user_path(@user)%></td?
         <%if user_signed_in?%>
           <%if current_user.id == tweet.user_id%>
             <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
