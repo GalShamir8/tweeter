@@ -22,6 +22,16 @@
   <%= button_to "#{@following_count}", users_following_path, params: {id: @user.id}, method: :get %>
 </p>
 
+<p>
+  <strong>Tweets:</strong>
+  <br/><br/>
+  <% @tweets.each do |tweet| %>
+    <%= tweet.created_at.strftime("%d/%m/%Y") %>: <%= tweet.content %>
+    <br/>
+  <% end%>
+</p>
+
+
 <%if user_signed_in?%>
   <%if current_user.id == @user.id%>
     <%= link_to 'Edit', edit_user_path(@user) %> |

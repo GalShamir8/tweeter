@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   def show
     @followers_count = @followers.length() || 0
     @following_count = @following.length() || 0
+    @tweets = Tweet.where("user_id = ?", @user.id)
   end
 
   # GET /users/search
