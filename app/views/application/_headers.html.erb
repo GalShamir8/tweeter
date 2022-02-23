@@ -4,11 +4,16 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent" style='margin-left:1200px'>
+  <a class="navbar-brand" href=<%=users_path%>> Discover Users </a>
+  <button class="navbar-toggler"' type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" style='margin-left:1100px'>
     <%= form_tag(users_search_path, method: "get") do %>
       <%= label_tag(:q, "Search for:") %>
       <%= text_field_tag(:q) %>
-      <%= submit_tag("Search") %>
+      <%= submit_tag("Search User") %>
     <% end %>
   </div>
 </nav>
