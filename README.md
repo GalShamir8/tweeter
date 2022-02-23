@@ -1,24 +1,12 @@
-# README
+# Tweeter
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+little project for best practice first hands on ruby on rails developing.
 
-Things you may want to cover:
+Make functionality of several parts of the common tweeter site.
+  * made users, tweets, followers support.
+  
+little touch with css and html for icons, nav-bar (bootstrap).
 
-* Ruby version
+Resful client-server communication basis, using routes.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+login authentication.
