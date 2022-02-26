@@ -20,3 +20,15 @@
     width: 30%;
     min-width: 300px;
 }
+
+.tweets {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-right: 90%;
+}
+
+.tweet {
+    width: 30%;
+    min-width: 300px;
+}
