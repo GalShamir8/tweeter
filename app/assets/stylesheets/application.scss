@@ -1,0 +1,22 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    h1 {
+        margin: 0;
+    }
+}
+
+.users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user {
+    width: 30%;
+    min-width: 300px;
+}
